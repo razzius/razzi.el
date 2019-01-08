@@ -206,6 +206,7 @@
   (insert ",")
   (evil-normal-state))
 
+;;;###autoload
 (defun razzi-current-line-empty-p ()
   (string-match-p "^\\s-*$" (thing-at-point 'line)))
 
@@ -243,6 +244,7 @@
       (save-buffer)
     (flycheck-buffer)))
 
+;;;###autoload
 (defun razzi-char-at-point ()
   (string-to-char (thing-at-point 'char t)))
 
