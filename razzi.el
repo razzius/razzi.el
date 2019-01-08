@@ -221,7 +221,7 @@
 		     '(?\" ?} ?\]))
 	       (memq major-mode '(js-mode python-mode rjsx-mode)))
 	  (razzi-append-comma)))
-      (call-interactively 'evil-open-below))))
+      (call-interactively 'evil-open-below)))
 
 ;;;###autoload
 (defun razzi-mark-line-text ()
