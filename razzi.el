@@ -215,7 +215,7 @@
   "Open a new line below and go into insert mode, adding a comma if needed"
   (interactive)
   (evil-with-single-undo
-    (unless (current-line-empty-p)
+    (unless (razzi-current-line-empty-p)
       (move-end-of-line nil)
       (backward-char)
       (if (and (memq (string-to-char (thing-at-point 'char t))
@@ -264,6 +264,18 @@
           (end-of-buffer)
           (previous-line))
       (evil-goto-line arg))))
+
+;;;###autoload
+(defun razzi-replay-q-macro ()
+  (interactive)
+  (let ((keys (evil-get-register ?q)))
+    (evil-execute-macro 1 keys)))
+
+;;;###autoload
+(defun razzi-ivy-search-at-point ()
+  (interactive)
+  (let ((word (thing-at-point 'symbol)))
+    (counsel-rg word)))
 
 (provide 'razzi)
 ;;; razzi.el ends here
