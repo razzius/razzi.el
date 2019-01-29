@@ -16,6 +16,8 @@
 
 ;;; Code:
 
+(require 'evil)
+
 (defgroup razzi nil
   "razzi configuration though there isn't any yet."
   :prefix "razzi-"
@@ -133,13 +135,6 @@
   (interactive)
   (sp-kill-hybrid-sexp nil)
   (evil-insert 0))
-
-;;;###autoload
-(defun razzi-expand-line ()
-  (interactive)
-  (let ((hippie-expand-try-functions-list
-         '(try-expand-line try-expand-line-all-buffers))
-    (call-interactively 'hippie-expand))))
 
 ;;;###autoload
 (defun razzi-surround-with-single-quotes (start end)
