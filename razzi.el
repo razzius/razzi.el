@@ -270,5 +270,21 @@
   (let ((word (thing-at-point 'symbol)))
     (counsel-rg word)))
 
+;;;###autoload
+(defun razzi-reload-file ()
+  (interactive)
+  (revert-buffer :ignore-auto :noconfirm))
+
+;;;###autoload
+(defun razzi-split-after-comma ()
+  (interactive)
+  (evil-find-char 1 ?,)
+  (evil-forward-char)
+  (if (eq (following-char) ?\s)
+      (evil-replace (point) (+ (point) 1) nil ?\n)
+    (progn
+      (insert ?\n)
+      (indent-for-tab-command))))
+
 (provide 'razzi)
 ;;; razzi.el ends here
