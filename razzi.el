@@ -239,7 +239,9 @@
     (flycheck-buffer)))
 
 (defun razzi-char-at-point ()
-  (string-to-char (thing-at-point 'char t)))
+  (if (null (thing-at-point 'char t))
+      ""
+    (string-to-char (thing-at-point 'char t))))
 
 ;;;###autoload
 (defun razzi-almost-end-of-line ()
@@ -285,6 +287,84 @@
     (progn
       (insert ?\n)
       (indent-for-tab-command))))
+
+;;;###autoload
+(defun razzi-copy-project-file-path ()
+  (interactive)
+  (let* ((root (s-append "/" (s-chomp (shell-command-to-string "git root"))))
+         (relative-path (s-chop-prefix root (buffer-file-name))))
+    (kill-new relative-path)
+    (message "Copied path '%s' to the clipboard." relative-path)))
+
+;;;###autoload
+(defun razzi-copy-file-name ()
+  "Copy the current buffer file name to the clipboard."
+  (interactive)
+  (let ((filename (file-name-nondirectory (buffer-file-name))))
+    (when filename
+      (kill-new filename)
+      (message "Copied buffer file name '%s' to the clipboard." filename))))
+
+;;;###autoload
+(defun razzi-copy-file-dir ()
+  "Copy the current buffer directory to the clipboard."
+  (interactive)
+  (kill-new default-directory)
+  (message "Copied buffer directory '%s' to the clipboard." default-directory))
+
+;;;###autoload
+(defun razzi-put-debugger ()
+  (interactive)
+  (evil-insert-newline-below)
+  (indent-for-tab-command)
+  (insert "debugger"))
+
+;;;###autoload
+(defun razzi-run-script-on-file (command)
+  (save-buffer)
+  (shell-command (concat command " " (buffer-file-name)))
+  (revert-buffer 'no-confirm t t))
+
+;;;###autoload
+(defun razzi-restart-emacs ()
+  (interactive)
+  (save-some-buffers t)
+  (mapcar 'delete-process (process-list))
+  (restart-emacs))
+
+;;;###autoload
+(defun razzi-close-all-buffers ()
+  (interactive)
+  (mapc 'kill-buffer (buffer-list)))
+
+
+(defun razzi-surround-paragraph()
+  (interactive)
+  ; blerg
+  (evil-execute-macro 1 "ysil<p"))
+  ;; (evil-visual-char)
+  ;; (evil-end-of-line)
+  ;; (evil-surround-region (region-beginning) (1+ (region-end)) 'line ?<)
+  ;; ;; (self-insert-command "p")
+  ;; (exit-minibuffer))
+
+(defun razzi-surround-h1()
+  (interactive) ; blerg
+  (evil-execute-macro 1 "ysil<h1"))
+
+(defun razzi-surround-h2()
+  (interactive) ; blerg
+  (evil-execute-macro 1 "ysil<h2"))
+
+(defun razzi-surround-h3()
+  (interactive) ; blerg
+  (evil-execute-macro 1 "ysil<h3"))
+
+(defun razzi-surround-div()
+  (interactive)
+  ; blerg
+  (evil-execute-macro 1 "ysil<div"))
+
 
 (provide 'razzi)
 ;;; razzi.el ends here
