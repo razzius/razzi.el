@@ -201,6 +201,17 @@
   (insert ",")
   (evil-normal-state))
 
+(defun razzi-save-if-buffer-is-file ()
+  (if (and buffer-file-name (buffer-modified-p))
+      (save-buffer)))
+
+(defun razzi-save-delete-close ()
+  (interactive)
+  (razzi-save-if-buffer-is-file)
+  (kill-this-buffer)
+  (when (> (length (window-list)) 1)
+    (delete-window)))
+
 (defun razzi-current-line-empty-p ()
   (string-match-p "^\\s-*$" (thing-at-point 'line)))
 
