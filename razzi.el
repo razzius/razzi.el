@@ -245,9 +245,14 @@
 ;;;###autoload
 (defun razzi-flycheck-and-save-buffer ()
   (interactive)
-  (if (buffer-modified-p)
-      (save-buffer)
-    (flycheck-buffer)))
+  (razzi-save-if-buffer-is-file)
+  (flycheck-buffer))
+
+;;;###autoload
+(defun razzi-save-and-magit-status ()
+  (interactive)
+  (razzi-save-if-buffer-is-file)
+  (magit-status))
 
 (defun razzi-char-at-point ()
   (if (null (thing-at-point 'char t))
