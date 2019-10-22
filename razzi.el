@@ -246,7 +246,8 @@
 (defun razzi-flycheck-and-save-buffer ()
   (interactive)
   (razzi-save-if-buffer-is-file)
-  (flycheck-buffer))
+  (when flycheck-mode
+    (flycheck-buffer)))
 
 ;;;###autoload
 (defun razzi-save-and-magit-status ()
