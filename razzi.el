@@ -354,6 +354,9 @@
   (interactive)
   (mapc 'kill-buffer (buffer-list)))
 
+(defun razzi-buffer-string (buffer)
+  (with-current-buffer buffer
+    (buffer-string)))
 
 (defun razzi-surround-paragraph()
   (interactive)
