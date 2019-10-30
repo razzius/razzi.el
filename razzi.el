@@ -70,7 +70,7 @@
   (save-buffer))
 
 ;;;###autoload
-(defun razzi-copy-file-name-to-clipboard ()
+(defun razzi-copy-full-file-name ()
   "Copy the current buffer file name to the clipboard."
   (interactive)
   (let ((filename (if (equal major-mode 'dired-mode)
