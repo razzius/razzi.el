@@ -334,7 +334,10 @@
   (interactive)
   (evil-insert-newline-below)
   (indent-for-tab-command)
-  (insert "debugger"))
+  (let ((debugger (if (eq major-mode 'python-mode)
+                      "__import__('pdb').set_trace()"
+                    "debugger")))
+    (insert debugger)))
 
 ;;;###autoload
 (defun razzi-run-script-on-file (command)
@@ -385,6 +388,22 @@
   ; blerg
   (evil-execute-macro 1 "ysil<div"))
 
+(defun razzi-aget (key alist)
+  (cdr (assoc key alist)))
+
+;;;###autoload
+(defun razzi-toggle-true-false ()
+  (interactive)
+  "fixme nomacro"
+  (let* ((word (thing-at-point 'word t))
+         (replacements '(("False" . "True")
+                         ("True" . "False")
+                         ("true" . "false")
+                         ("false" . "true")))
+         (replacement (razzi-aget word replacements)))
+    (evil-with-single-undo
+      (evil-execute-macro 1 "diw")
+      (insert replacement))))
 
 (provide 'razzi)
 ;;; razzi.el ends here
