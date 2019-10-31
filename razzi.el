@@ -205,13 +205,6 @@
   (if (and buffer-file-name (buffer-modified-p))
       (save-buffer)))
 
-(defun razzi-save-delete-close ()
-  (interactive)
-  (razzi-save-if-buffer-is-file)
-  (kill-this-buffer)
-  (when (> (length (window-list)) 1)
-    (delete-window)))
-
 (defun razzi-current-line-empty-p ()
   (string-match-p "^\\s-*$" (thing-at-point 'line)))
 
@@ -387,6 +380,9 @@
   (interactive)
   ; blerg
   (evil-execute-macro 1 "ysil<div"))
+
+(defun razzi-buffer-major-mode (buffer)
+  (buffer-local-value 'major-mode buffer))
 
 (defun razzi-aget (key alist)
   (cdr (assoc key alist)))
