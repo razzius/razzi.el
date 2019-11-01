@@ -401,5 +401,10 @@
       (evil-execute-macro 1 "diw")
       (insert replacement))))
 
+;;;###autoload
+(defun razzi-go-to-file-at-point ()
+  (interactive)
+  (find-file (ffap-string-at-point)))
+
 (provide 'razzi)
 ;;; razzi.el ends here
