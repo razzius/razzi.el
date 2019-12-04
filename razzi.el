@@ -421,5 +421,11 @@
   (sp-end-of-next-sexp)
   (newline-and-indent))
 
+;;;###autoload
+(defun razzi-undo ()
+  (interactive)
+  (let ((inhibit-message t))
+    (undo-tree-undo)))
+
 (provide 'razzi)
 ;;; razzi.el ends here
