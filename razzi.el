@@ -406,5 +406,20 @@
   (interactive)
   (find-file (ffap-string-at-point)))
 
+;;;###autoload
+(defun razzi-duplicate-paragraph ()
+  (interactive)
+  (let ((paragraph (thing-at-point 'paragraph)))
+    (save-excursion
+      (evil-forward-paragraph)
+      (insert paragraph))))
+
+;;;###autoload
+(defun razzi-open-sexp-below ()
+  (interactive)
+  (evil-append 1)
+  (sp-end-of-next-sexp)
+  (newline-and-indent))
+
 (provide 'razzi)
 ;;; razzi.el ends here
