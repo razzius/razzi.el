@@ -427,5 +427,13 @@
   (let ((inhibit-message t))
     (undo-tree-undo)))
 
+;;;###autoload
+(defun razzi-eval-current-sexp ()
+  (interactive)
+  (save-excursion
+    (sp-end-of-sexp)
+    (forward-char)
+    (call-interactively 'eval-last-sexp)))
+
 (provide 'razzi)
 ;;; razzi.el ends here
