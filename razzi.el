@@ -435,5 +435,10 @@
     (forward-char)
     (call-interactively 'eval-last-sexp)))
 
+;;;###autoload
+(defun razzi-recentf ()
+  (interactive)
+  (find-file (completing-read "Recent file: " recentf-list)))
+
 (provide 'razzi)
 ;;; razzi.el ends here
