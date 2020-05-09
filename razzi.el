@@ -70,6 +70,15 @@
   (save-buffer))
 
 ;;;###autoload
+(defun razzi-file-name ()
+  "Copy the current buffer file name to the clipboard."
+  (interactive)
+  (let ((filename (file-name-nondirectory (buffer-file-name))))
+    (when filename
+      (kill-new filename)
+      (message "Copied buffer file name '%s' to the clipboard." filename))))
+
+;;;###autoload
 (defun razzi-copy-full-file-name ()
   "Copy the current buffer file name to the clipboard."
   (interactive)
