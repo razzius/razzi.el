@@ -50,6 +50,11 @@
     (forward-line)))
 
 ;;;###autoload
+(defun razzi-insert-tab()
+  (interactive)
+  (insert-char ?\t))
+
+;;;###autoload
 (defun razzi-close-all-file-buffers ()
   (interactive)
   (mapc 'kill-buffer (buffer-list)))
@@ -247,7 +252,9 @@
 ;;;###autoload
 (defun razzi-flycheck-and-save-buffer ()
   (interactive)
+  (delete-trailing-whitespace)
   (razzi-save-if-buffer-is-file)
+  (evil-normal-state)
   (when flycheck-mode
     (flycheck-buffer)))
 
@@ -445,9 +452,48 @@
     (call-interactively 'eval-last-sexp)))
 
 ;;;###autoload
+(defun razzi-switch-to-scratch-buffer ()
+  (interactive)
+  (switch-to-buffer "*scratch*"))
+
+;;;###autoload
 (defun razzi-recentf ()
   (interactive)
   (find-file (completing-read "Recent file: " recentf-list)))
+
+;;;###autoload
+(defun razzi-text-scale-reset ()
+  (interactive)
+  (text-scale-set 0))
+
+;;;###autoload
+(defun razzi-evil-commentary-line ()
+  (interactive)
+  (save-excursion
+    (call-interactively 'evil-commentary-line)))
+
+(defvar razzi-killed-file-list nil
+  "List of recently killed files.")
+
+(defun razzi-add-file-to-killed-file-list ()
+  "If buffer is associated with a file name, add that file to the
+`killed-file-list' when killing the buffer."
+  (when buffer-file-name
+    (push buffer-file-name razzi-killed-file-list)))
+
+(define-minor-mode razzi-mode
+  "woooooooooooooo"
+  :init-value nil
+  :global t
+  (if razzi-mode
+      (add-hook 'kill-buffer-hook #'razzi-add-file-to-killed-file-list)
+    (remove-hook 'kill-buffer-hook #'razzi-add-file-to-killed-file-list)))
+
+(defun razzi-reopen-killed-file ()
+  "Reopen the most recently killed file, if one exists."
+  (interactive)
+  (when razzi-killed-file-list
+    (find-file (pop razzi-killed-file-list))))
 
 (provide 'razzi)
 ;;; razzi.el ends here
