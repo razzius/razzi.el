@@ -25,7 +25,7 @@
 
 ;;;###autoload
 (defun razzi-associate-extension-mode (extension mode)
-  (let ((pattern (s-concat "\\." extension "$")))
+  (let ((pattern (concat "\\." extension "$")))
     (add-to-list 'auto-mode-alist (cons pattern mode))))
 
 ;;;###autoload
