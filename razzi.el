@@ -362,6 +362,12 @@
   (restart-emacs))
 
 ;;;###autoload
+(defun razzi-exit-emacs ()
+  (interactive)
+  (mapcar 'delete-process (process-list))
+  (save-buffers-kill-terminal))
+
+;;;###autoload
 (defun razzi-close-all-buffers ()
   (interactive)
   (mapc 'kill-buffer (buffer-list)))
