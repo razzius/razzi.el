@@ -2,11 +2,9 @@
 ;;
 ;; Copyright Razzi Abuissa
 ;;
-;; Author: Razzi Abuissa <razzi53@gmail.com>
-;; URL: https://github.com/razzius/razzi.el
-;; Version: 0.1.0
-;; Keywords:
-;; Package-Requires:
+;; Author: Razzi Abuissa <razzi@abuissa.net>
+;; URL: https://git.sr.ht/~razzi/razzi.el
+;; Version: 0.2.0
 
 ;; This file is not part of GNU Emacs.
 
@@ -25,7 +23,9 @@
 
 ;;;###autoload
 (defun razzi-associate-extension-mode (extension mode)
-  (let ((pattern (concat "\\." extension "$")))
+  "Associate a file extension with an editing mode.
+For example, (razzi-associate-extension-mode \"js\" 'javascript-mode)"
+  (let ((pattern (concat "\\." extension "\\'")))
     (add-to-list 'auto-mode-alist (cons pattern mode))))
 
 ;;;###autoload
