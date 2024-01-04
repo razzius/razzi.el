@@ -4,7 +4,7 @@
 ;;
 ;; Author: Razzi Abuissa <razzi@abuissa.net>
 ;; URL: https://git.sr.ht/~razzi/razzi.el
-;; Version: 0.2.0
+;; Version: 0.3.0
 
 ;; This file is not part of GNU Emacs.
 
@@ -20,6 +20,11 @@
   "razzi configuration though there isn't any yet."
   :prefix "razzi-"
   :group 'convenience)
+
+;;;###autoload
+(defun razzi-edit-init ()
+  (interactive)
+  (find-file (expand-file-name "~/.emacs.d/init.el")))
 
 ;;;###autoload
 (defun razzi-associate-extension-mode (extension mode)
